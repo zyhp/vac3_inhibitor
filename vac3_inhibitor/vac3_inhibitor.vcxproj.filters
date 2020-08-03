@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{d939c4c2-c675-4e0c-98bc-5aded618e285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main\precompiled">
+      <UniqueIdentifier>{45026ded-5617-4149-9bee-03d6ef082141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="misc">
+      <UniqueIdentifier>{009a52e5-6f45-445b-bcf9-51f3357b6684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks">
+      <UniqueIdentifier>{59be63bb-b1ac-481a-aae4-f7318ce49e91}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>main\precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.hpp">
+      <Filter>main\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="valve.hpp">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="crc32.hpp">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks.hpp">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.hpp">
+      <Filter>misc</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
