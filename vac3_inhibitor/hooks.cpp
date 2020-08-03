@@ -64,10 +64,6 @@ bool __stdcall hooks::hk_loading( valve::vac_buffer* h_mod, char injection_flags
 	if ( h_mod->m_pRunFunc )
 	{
 		h_mod->m_pRunFunc = nullptr;
-
-		b_clear_call = true;
-		ui_hash = h_mod->m_unCRC32;
-		
 		valve::msg( "[ VAC3 ] nulled _runfunc@20.\n" );
 	}
 

@@ -4,9 +4,6 @@ namespace hooks
 {
 	bool initialize();
 
-	inline bool b_clear_call = false;
-	inline std::uint32_t ui_hash = 0u;
-
 	using loading_t = bool( __stdcall* )( valve::vac_buffer*, char );
 	inline loading_t o_loading;
 	bool __stdcall hk_loading( valve::vac_buffer*, char );
