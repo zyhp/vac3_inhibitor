@@ -12,5 +12,5 @@ Completely disables any verification routines.
 - There are other ways to achieve the same effect, such as:
 	- `jmp/ret` on module begin...
 	- hook steam free_std to hook inside every module loaded and disable the function calls...
-	- make steam unload their on modules after being loaded
+	- make steam unload their own modules after being loaded
 	- you get the idea, get creative in case this ever gets patched
