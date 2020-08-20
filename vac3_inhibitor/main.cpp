@@ -1,7 +1,7 @@
 #include "stdafx.hpp"
 #include "hooks.hpp"
 
-DWORD __stdcall OnDllAttach()
+DWORD __stdcall OnDllAttach( )
 {
 	while ( !GetModuleHandleA( "tier0_s.dll" ) )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 25 ) );
@@ -11,7 +11,7 @@ DWORD __stdcall OnDllAttach()
 
 	valve::msg( "[ OnDllAttach ] initializing...\n" );
 
-	if ( !hooks::initialize() )
+	if ( !hooks::initialize( ) )
 		exit( EXIT_FAILURE );
 
 	while ( true )
@@ -24,7 +24,7 @@ BOOL __stdcall DllMain( HMODULE hModule, DWORD ulReasonForCall, LPVOID lpReserve
 	{
 		case DLL_PROCESS_ATTACH:
 			DisableThreadLibraryCalls( hModule );
-			_beginthreadex( nullptr, 0, reinterpret_cast<unsigned( __stdcall* )( void* )>( OnDllAttach ), nullptr, 0, nullptr );
+			_beginthreadex( nullptr, 0, reinterpret_cast< unsigned( __stdcall * )( void * ) >( OnDllAttach ), nullptr, 0, nullptr );
 			break;
 
 		default:

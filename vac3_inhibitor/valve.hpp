@@ -2,18 +2,18 @@
 
 namespace valve
 {
-	__forceinline void msg( const char* message, ... )
+	__forceinline void msg( const char *message, ... )
 	{
-		static auto* h_tier0 = GetModuleHandleA( "tier0_s.dll" );
+		static auto *h_tier0 = GetModuleHandleA( "tier0_s.dll" );
 		if ( !h_tier0 )
 			return;
 
-		using fn = void( __cdecl* )( const char* msg, va_list );
-		static auto _msg = reinterpret_cast<fn>(GetProcAddress(h_tier0, "Msg"));
+		using fn = void( __cdecl * )( const char *msg, va_list );
+		static auto _msg = reinterpret_cast< fn >( GetProcAddress( h_tier0, "Msg" ) );
 		if ( !_msg )
 			return;
 
-		char buf[1024];
+		char buf[ 1024 ];
 
 		va_list list;
 		va_start( list, message );
@@ -33,20 +33,20 @@ namespace valve
 
 	struct mapped_module
 	{
-		std::byte pad04[4];
-		void* m_pModuleBase;
+		std::byte pad04[ 4 ];
+		void *m_pModuleBase;
 		PIMAGE_NT_HEADERS m_pNTHeaders;
 	};
 
 	struct vac_buffer
 	{
 		std::uint32_t m_unCRC32;
-		std::byte pad04[4];
-		mapped_module* m_pMappedModule;
-		void* m_pRunFunc; // entrypoint
+		std::byte pad04[ 4 ];
+		mapped_module *m_pMappedModule;
+		void *m_pRunFunc; // entrypoint
 		int m_nLastResult;
 		int m_nModuleSize;
-		void* m_pRawModule;
+		void *m_pRawModule;
 	};
 
 	inline std::vector<std::uintptr_t> uid_whitelist;
