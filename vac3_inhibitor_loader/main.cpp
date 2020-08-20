@@ -6,6 +6,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	if ( !util::read_file_to_memory( "vac3_inhibitor.dll", &vec_bypass ) )
 	{
 		_loge( "Failed to read the file." );
+		std::cin.get( );
 		return EXIT_FAILURE;
 	}
 
@@ -14,6 +15,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	{
 		RegCloseKey( h_key );
 		_loge( "Failed to open register." );
+		std::cin.get( );
 		return EXIT_FAILURE;
 	}
 
@@ -24,6 +26,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	{
 		RegCloseKey( h_key );
 		_loge( "Steam path not found." );
+		std::cin.get( );
 		return EXIT_FAILURE;
 	}
 
@@ -50,6 +53,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		CloseHandle( pi.hThread );
 
 		_loge( "Failed to open steam with the command line." );
+		std::cin.get( );
 		return EXIT_FAILURE;
 	}
 
@@ -59,6 +63,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	if ( memory::is_process_open( "steamservice.exe" ) || !memory::is_process_with_admin_rights( "steam.exe" ) )
 	{
 		_loge( "Steam is not open as admin." );
+		std::cin.get( );
 		return EXIT_FAILURE;
 	}
 
@@ -90,6 +95,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			memory::kill_process( "steam.exe" );
 
 			_loge( "Failed to inject into steam." );
+			std::cin.get( );
 			return EXIT_FAILURE;
 		}
 
