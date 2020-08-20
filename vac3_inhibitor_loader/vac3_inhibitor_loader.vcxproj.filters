@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{c8236a6c-9c83-48da-8927-e8cec2862b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main\precompiled">
+      <UniqueIdentifier>{1ec52397-782e-417f-938d-eaff12066599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="misc">
+      <UniqueIdentifier>{044e291c-e6c3-4d7f-a4c0-eeda471f857f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>main\precompiled</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="log.hpp">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.hpp">
+      <Filter>main\precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.hpp">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="util.hpp">
+      <Filter>misc</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
