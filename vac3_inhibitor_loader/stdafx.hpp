@@ -12,24 +12,13 @@
 #include <filesystem>
 #include <sstream>
 
-#include "Shlwapi.h"
-#pragma comment( lib, "Shlwapi.lib" )
+#include <Shlwapi.h>
+#include <shellapi.h>
 
-#include "shellapi.h"
 #pragma comment( lib, "Shell32.lib" )
+#pragma comment( lib, "Shlwapi.lib" )
 
 // global defs
 #include "log.hpp"
 #include "util.hpp"
 #include "memory.hpp"
-
-// path to blackbone x86 lib
-#include "D:/Lib/bbx86/BlackBone/BlackBone/PE/PEImage.h"
-#include "D:/Lib/bbx86/BlackBone/BlackBone/Process/Process.h"
-#include "D:/Lib/bbx86/BlackBone/BlackBone/Misc/DynImport.h"
-
-#ifdef _DEBUG
-#pragma comment ( lib, "D:/Lib/bbx86/BlackBone/Lib/Debug/BlackBone.lib" )
-#else
-#pragma comment ( lib, "D:/Lib/bbx86/BlackBone/Lib/Release/BlackBone.lib" )
-#endif
