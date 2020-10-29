@@ -73,9 +73,8 @@ bool __stdcall hooks::hk_loading( valve::vac_buffer* h_mod, char injection_flags
 		// new module? dump and check if it needs to be loaded or not, gl & hf	
 		valve::msg( "[ VAC3 ] unknown module loaded.\n" );
 
-	#ifndef _DEBUG
-		exit( EXIT_FAILURE );
-	#endif
+		// i will not update the modules list or reverse any that changed the crc, do by yourself.
+		Beep( 500, 100 );
 	}
 
 	return b_ret;
