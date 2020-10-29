@@ -20,9 +20,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="log.hpp">
-      <Filter>misc</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.hpp">
       <Filter>main\precompiled</Filter>
     </ClInclude>

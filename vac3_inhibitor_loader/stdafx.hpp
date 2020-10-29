@@ -5,9 +5,9 @@
 // includes
 #include <windows.h>
 #include <TlHelp32.h>
+
 #include <iostream>
 #include <fstream>
-
 #include <shared_mutex>
 #include <filesystem>
 #include <sstream>
@@ -18,7 +18,6 @@
 #pragma comment( lib, "Shell32.lib" )
 #pragma comment( lib, "Shlwapi.lib" )
 
-// global defs
-#include "log.hpp"
+// shared
 #include "util.hpp"
 #include "memory.hpp"
