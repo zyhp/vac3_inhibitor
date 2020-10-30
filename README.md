@@ -2,10 +2,7 @@
 
 Completely disables any verification routines.
 
-- Compile the code using any `C++17` compiler and inject into **steam.exe** as soon as it loads up
-- **steam.exe** needs to be open as admin
--
-
+Compile the code using any `C++17` compiler and inject into **steam.exe** as soon as it loads up, **steam.exe** needs to be open as admin
 Or simple download it from the releases and run the .exe ...
 
 ***Some considerations...***
