@@ -50,32 +50,15 @@ bool __stdcall hooks::hk_loading( valve::vac_buffer* h_mod, char injection_flags
 	{
 		valve::msg( "[ VAC3 ] loading module crc32 [ 0x%.8X ].\n", nt_header_crc32 );
 
-		// whitelisting these 2, these are responsable for connection, if we block the load it will kick us.
 		if ( nt_header_crc32 == 0xCC29049A || nt_header_crc32 == 0x2B8DD987 )
 			valve::uid_whitelist.push_back( h_mod->m_unCRC32 );
 	}
 
 	if ( h_mod->m_unCRC32 && std::find( valve::uid_whitelist.begin(), valve::uid_whitelist.end(), h_mod->m_unCRC32 ) != valve::uid_whitelist.end() )
-	{
-		valve::msg( "[ VAC3 ] uid [ 0x%.8X ] is whitelisted.\n", h_mod->m_unCRC32 );
 		return b_ret;
-	}
 
 	if ( h_mod->m_pRunFunc )
-	{
 		h_mod->m_pRunFunc = nullptr;
-		valve::msg( "[ VAC3 ] nulled _runfunc@20.\n" );
-	}
-
-	// do we know this shit?
-	if ( nt_header_crc32 && std::find( valve::modules_hash.begin(), valve::modules_hash.end(), nt_header_crc32 ) == valve::modules_hash.end() )
-	{
-		// new module? dump and check if it needs to be loaded or not, gl & hf	
-		valve::msg( "[ VAC3 ] unknown module loaded.\n" );
-
-		// i will not update the modules list or reverse any that changed the crc, do by yourself.
-		Beep( 500, 100 );
-	}
 
 	return b_ret;
 }
@@ -86,10 +69,7 @@ int __fastcall hooks::hk_calling( void* ecx, void* edx, std::uint32_t crc_hash, 
 	o_calling( ecx, edx, crc_hash, injection_mode, unused_maybe, runfunc_param1, runfunc_param2, runfunc_param3, runfunc_param4, region_or_size_check_maybe, module_status );
 
 	if ( *module_status != valve::SUCCESS && *module_status != valve::OTHER_SUCCESS )
-	{
 		*module_status = valve::SUCCESS;
-		valve::msg( "[ VAC3 ] patched ret from uid [ 0x%.8X ].\n", crc_hash );
-	}
 
 	return 1;
 }
