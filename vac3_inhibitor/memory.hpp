@@ -2,7 +2,7 @@
 
 namespace memory
 {
-	__forceinline std::uintptr_t tramp_hook( std::uintptr_t* src_addr, const std::uintptr_t dst_addr, const std::uintptr_t len )
+	inline std::uintptr_t tramp_hook( std::uintptr_t* src_addr, const std::uintptr_t dst_addr, const std::uintptr_t len )
 	{
 		auto* mem = VirtualAlloc( nullptr, len + 5, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE );
 		memcpy( mem, src_addr, len );
@@ -25,7 +25,7 @@ namespace memory
 		return reinterpret_cast<std::uintptr_t>( mem );
 	}
 
-	__forceinline std::uintptr_t relative_address( const std::uintptr_t addr, const size_t offs )
+	inline std::uintptr_t relative_address( const std::uintptr_t addr, const size_t offs )
 	{
 		if ( !addr )
 			return NULL;
@@ -45,7 +45,7 @@ namespace memory
 		return offsetof( IMAGE_NT_HEADERS, OptionalHeader ) + nt->FileHeader.SizeOfOptionalHeader + nt->FileHeader.NumberOfSections * sizeof( IMAGE_SECTION_HEADER );
 	}
 
-	__forceinline std::uintptr_t hash_header( void* base )
+	inline std::uintptr_t hash_header( void* base )
 	{
 		auto* dos = static_cast<PIMAGE_DOS_HEADER>( base );
 		if ( !dos )

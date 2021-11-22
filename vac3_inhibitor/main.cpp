@@ -9,7 +9,7 @@ DWORD __stdcall OnDllAttach()
 	while ( !GetModuleHandleA( "steamservice.dll" ) )
 		std::this_thread::sleep_for( std::chrono::milliseconds( 25 ) );
 
-	valve::msg( "[ OnDllAttach ] initializing...\n" );
+	valve::msg( "[ VAC3 ] initializing...\n" );
 
 	if ( !hooks::initialize() )
 		exit( EXIT_FAILURE );

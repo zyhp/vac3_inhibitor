@@ -7,13 +7,13 @@ bool hooks::initialize()
 
 	// LOADING
 	{
-		// E8 ? ? ? ? 84 C0 75 16 8B 43
+		// 8B CF E8 ? ? ? ? 84 C0 75 0B + 2
 		// memory::relative_address((std::uintptr_t)dw_loading, 1)
 
 		auto* const dw_loading = memory::pattern_scan_ida( h_steamservice, "55 8B EC 83 EC 28 53 56 8B 75 08 8B" );
 		if ( !dw_loading )
 		{
-			valve::msg( "[ hooks::initialize ] dw_loading is nullptr...\n" );
+			valve::msg( "[ VAC3 ] dw_loading is nullptr...\n" );
 			return false;
 		}
 
@@ -23,13 +23,13 @@ bool hooks::initialize()
 
 	// CALLING
 	{
-		// E8 ? ? ? ? E8 ? ? ? ? 6A 00 FF 76 58
+		// E8 ? ? ? ? 89 86 ? ? ? ? E8 ? ? ? ? 6A 00	
 		// memory::relative_address((std::uintptr_t)dw_calling, 1)
 
 		auto* const dw_calling = memory::pattern_scan_ida( h_steamservice, "55 8B EC 6A FF 68 ? ? ? ? 68 ? ? ? ? 64 A1 ? ? ? ? 50 64 89 25 ? ? ? ? 83 EC 6C 53 56" );
 		if ( !dw_calling )
 		{
-			valve::msg( "[ hooks::initialize ] dw_calling is nullptr...\n" );
+			valve::msg( "[ VAC3 ] dw_calling is nullptr...\n" );
 			return false;
 		}
 
@@ -37,7 +37,7 @@ bool hooks::initialize()
 												 reinterpret_cast<std::uintptr_t>( hk_calling ), 5 ) );
 	}
 
-	valve::msg( "[ hooks::initialize ] ready...\n" );
+	valve::msg( "[ VAC3 ] ready...\n" );
 	return true;
 }
 
@@ -50,47 +50,25 @@ bool __stdcall hooks::hk_loading( valve::vac_buffer* h_mod, char injection_flags
 	{
 		valve::msg( "[ VAC3 ] loading module crc32 [ 0x%.8X ].\n", nt_header_crc32 );
 
-		// whitelisting these 2, these are responsable for connection, if we block the load it will kick us.
 		if ( nt_header_crc32 == 0xCC29049A || nt_header_crc32 == 0x2B8DD987 )
 			valve::uid_whitelist.push_back( h_mod->m_unCRC32 );
 	}
 
 	if ( h_mod->m_unCRC32 && std::find( valve::uid_whitelist.begin(), valve::uid_whitelist.end(), h_mod->m_unCRC32 ) != valve::uid_whitelist.end() )
-	{
-		valve::msg( "[ VAC3 ] uid [ 0x%.8X ] is whitelisted.\n", h_mod->m_unCRC32 );
 		return b_ret;
-	}
 
 	if ( h_mod->m_pRunFunc )
-	{
 		h_mod->m_pRunFunc = nullptr;
-		valve::msg( "[ VAC3 ] nulled _runfunc@20.\n" );
-	}
-
-	// do we know this shit?
-	if ( nt_header_crc32 && std::find( valve::modules_hash.begin(), valve::modules_hash.end(), nt_header_crc32 ) == valve::modules_hash.end() )
-	{
-		// new module? dump and check if it needs to be loaded or not, gl & hf	
-		valve::msg( "[ VAC3 ] unknown module loaded.\n" );
-
-	#ifndef _DEBUG
-		exit( EXIT_FAILURE );
-	#endif
-	}
 
 	return b_ret;
 }
 
-int __fastcall hooks::hk_calling( void* ecx, void* edx, std::uint32_t crc_hash, char injection_mode, int unused_maybe, int runfunc_param1, int runfunc_param2, int runfunc_param3, int* runfunc_param4, int* region_or_size_check_maybe, int* module_status )
+int __fastcall hooks::hk_calling( void* ecx, void* edx, std::uint32_t crc_hash, char injection_mode, int unused1, int id, int param1, int unused2, int param2, int param3, int* param4, int* size_check )
 {
-	// we don't care about this value
-	o_calling( ecx, edx, crc_hash, injection_mode, unused_maybe, runfunc_param1, runfunc_param2, runfunc_param3, runfunc_param4, region_or_size_check_maybe, module_status );
+	auto status = o_calling( ecx, edx, crc_hash, injection_mode, unused1, id, param1, unused2, param2, param3, param4, size_check );
 
-	if ( *module_status != valve::SUCCESS && *module_status != valve::OTHER_SUCCESS )
-	{
-		*module_status = valve::SUCCESS;
-		valve::msg( "[ VAC3 ] patched ret from uid [ 0x%.8X ].\n", crc_hash );
-	}
+	if ( status != valve::SUCCESS && status != valve::OTHER_SUCCESS )
+		status = valve::SUCCESS;
 
-	return 1;
+	return status;
 }

@@ -2,7 +2,7 @@
 
 namespace valve
 {
-	__forceinline void msg( const char* message, ... )
+	inline void msg( const char* message, ... )
 	{
 		static auto* h_tier0 = GetModuleHandleA( "tier0_s.dll" );
 		if ( !h_tier0 )
@@ -49,13 +49,5 @@ namespace valve
 		void* m_pRawModule;
 	};
 
-	inline std::vector<std::uintptr_t> uid_whitelist;
-	inline std::vector<std::uintptr_t> modules_hash =
-	{
-		0x124b8c7f, 0x86bcebd0, 0x4f6c0697, 0xcc430292,
-		0xdd7b857 /* vmt telemetry */, 0x87cfbcbb, 0xd6ae10c8, 0xb5c9a7ff,
-		0xcc29049a, 0x1da3ae2a, 0x2b8dd987, 0x54068fd1,
-		0xd441f569, 0x6b23159d, 0x9cbf003e, 0xaefb39bf,
-		0xd1b06964, 0x7ad3a803, 0xabe4f802, 0x3582a746
-	};
+	inline std::vector<std::uintptr_t> uid_whitelist = {};
 }
